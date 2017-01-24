@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## SplitViewController, TabViewController, and MapKit- Create an app to view websites and their locations
 
 You can use the [editor on GitHub](https://github.com/zsheill7/SwiftTutorial/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
