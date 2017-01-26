@@ -39,6 +39,57 @@ The data is stored as JSON in a key-value structure.  Every key may correspond t
 
 
 Below is a simple firebase database that includes two users, user1 and user2, with different properties of both. 
+![Screenshot 10.5](/images/screenshot 10.5.png)
+
+Before we continue, let's spend some time to learn about Firebase references.  
+
+var ref: FIRDatabaseReference!
+
+ref = FIRDatabase.database().reference()
+
+This is the root reference of the database.  It can contain "child locations,"  which can be a "users" location or a "cities" location.
+
+To get the child "users": let userRef = self.ref.child("users")
+
+Below is a useful guide to common Firebase commands.  Don't worry about knowing all of these; these are for later reference.  We'll be going through each one in this tutorial.  
+
+```markdown
+var ref: FIRDatabaseReference!
+
+ref = FIRDatabase.database().reference()
+let user = FIRAuth.auth()?.currentUser
+Get current user
+if FIRAuth.auth()?.currentUser != nil {
+  // User is signed in.
+  // ...
+} else {
+  // No user is signed in.
+  // ...
+}
+Add a user
+self.ref.child("users").child(user.uid).setValue(["username": username])
+Change a specific property
+self.ref.child(“users/\(user.uid)/username").setValue(username)
+
+Retrieving Data
+refHandle = postRef.observe(FIRDataEventType.value, with: { (snapshot) in
+  let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+  // ...
+})
+Load Data only Once
+let userID = FIRAuth.auth()?.currentUser?.uid
+ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+  // Get user value
+  let value = snapshot.value as? NSDictionary
+  let username = value?["username"] as? String ?? ""
+  let user = User.init(username: username)
+
+  // ...
+  }) { (error) in
+    print(error.localizedDescription)
+}
+
+```
 
 ### Markdown
 
